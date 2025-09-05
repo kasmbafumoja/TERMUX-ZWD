@@ -1,1 +1,17 @@
-
+{
+  "name": "termux-zwd",
+  "version": "1.0.0",
+  "description": "WhatsApp MD bot using Baileys with pairing code (no QR).",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "kasereka mbafumoja",
+  "license": "MIT",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.6.0",
+    "pino": "^9.0.0",
+    "dotenv": "^16.4.0"
+  }
+}
