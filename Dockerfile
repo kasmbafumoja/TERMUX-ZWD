@@ -1,18 +1,23 @@
-# TERMUX-MD Dockerfile
-FROM node:18-alpine
+# Utiliser Node.js 18 (stable avec Baileys)
+FROM node:18
 
-# Create app directory
+# Créer un répertoire pour l'app
 WORKDIR /usr/src/app
 
-# Copy package.json & install deps
+# Copier package.json et package-lock.json en premier (meilleure cache Docker)
 COPY package*.json ./
-RUN npm install --production
 
-# Copy source
+# Installer toutes les dépendances (évite --production à cause de Baileys)
+RUN npm install --legacy-peer-deps
+
+# Copier tout le projet dans le container
 COPY . .
 
-# Expose default port (optional)
+# Créer le dossier session (important pour stocker les credentials WhatsApp)
+RUN mkdir -p /usr/src/app/session
+
+# Exposer un port (Render exige un port même si le bot n'utilise pas de serveur HTTP)
 EXPOSE 3000
 
-# Run bot
-CMD [ "node", "index.js" ]
+# Lancer le bot
+CMD ["node", "index.js"]
